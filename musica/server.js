@@ -13,6 +13,9 @@ const JOBS = join(ROOT, "data", "jobs");
 const VIDEO_TEMPLATE = join(ROOT, "data", "templates", "music-video-template.mp4");
 const PORT = Number(process.env.PORT || 3000);
 const HOST = process.env.HOST || "127.0.0.1";
+const OLLAMA_BASE_URL = (process.env.OLLAMA_BASE_URL || "https://ollama.com").replace(/\/$/, "");
+const ELEVENLABS_BASE_URL = (process.env.ELEVENLABS_BASE_URL || "https://api.elevenlabs.io").replace(/\/$/, "");
+const ELEVENLABS_MODEL = process.env.ELEVENLABS_MODEL || "music_v2";
 const jobs = new Map();
 const saveQueues = new Map();
 const execFileAsync = promisify(execFile);
@@ -155,17 +158,17 @@ async function runJob(job, durations, prompt, instrumental, count, trackTitles) 
     for (let i = 0; i < durations.length; i++) {
     const duration = durations[i];
     const segmentPrompt = buildProductionPrompt(job, songTitle, song, count, i, durations.length, direction.musicPrompt, lyrics, direction.musicProfile);
-    const planResponse = await fetch("https://api.elevenlabs.io/v1/music/plan", {
+    const planResponse = await fetch(`${ELEVENLABS_BASE_URL}/v1/music/plan`, {
       method: "POST",
       headers: { "content-type": "application/json", "xi-api-key": process.env.ELEVENLABS_API_KEY },
-      body: JSON.stringify({ prompt: segmentPrompt, music_length_ms: Math.round(duration * 60000), model_id: "music_v2" })
+      body: JSON.stringify({ prompt: segmentPrompt, music_length_ms: Math.round(duration * 60000), model_id: ELEVENLABS_MODEL })
     });
     if (!planResponse.ok) throw new Error(`El motor musical no pudo planificar (${planResponse.status}): ${clean(await planResponse.text(), 300)}`);
     const compositionPlan = reinforceCompositionPlan(await planResponse.json(), direction.musicProfile, job.genre, instrumental);
-    const response = await fetch("https://api.elevenlabs.io/v1/music/detailed?output_format=pcm_48000", {
+    const response = await fetch(`${ELEVENLABS_BASE_URL}/v1/music/detailed?output_format=pcm_48000`, {
       method: "POST",
       headers: { "content-type": "application/json", "xi-api-key": process.env.ELEVENLABS_API_KEY },
-      body: JSON.stringify({ composition_plan: compositionPlan, model_id: "music_v2", with_timestamps: !instrumental, with_waveform_visual: true })
+      body: JSON.stringify({ composition_plan: compositionPlan, model_id: ELEVENLABS_MODEL, with_timestamps: !instrumental, with_waveform_visual: true })
     });
     if (!response.ok) throw new Error(`El motor musical no pudo componer (${response.status}): ${clean(await response.text(), 300)}`);
     const detailed = parseDetailedMusicResponse(Buffer.from(await response.arrayBuffer()), response.headers.get("content-type") || "");
@@ -447,7 +450,7 @@ async function staticFile(pathname, res) {
 }
 
 async function ollama(path, body) {
-  const response = await fetch(`https://ollama.com${path}`, { method: "POST", headers: { "content-type": "application/json", authorization: `Bearer ${process.env.OLLAMA_API_KEY}` }, body: JSON.stringify(body) });
+  const response = await fetch(`${OLLAMA_BASE_URL}${path}`, { method: "POST", headers: { "content-type": "application/json", authorization: `Bearer ${process.env.OLLAMA_API_KEY}` }, body: JSON.stringify(body) });
   if (!response.ok) throw Object.assign(new Error(`El director creativo no respondió (${response.status}): ${clean(await response.text(), 300)}`), { status: 502 });
   return response.json();
 }

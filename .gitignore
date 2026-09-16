@@ -4,6 +4,9 @@
 *.pem.key
 credentials*.json
 
+# ── excepciones: el ejemplo de variables de entorno sí se versiona ──────────
+!musica/.env.example
+
 # ── entornos y cachés ──────────────────────────────────────────────────────
 .venv*/
 venv/
