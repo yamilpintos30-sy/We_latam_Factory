@@ -1,0 +1,9 @@
+.env
+data/generated/*
+!data/generated/.gitkeep
+data/jobs/*
+!data/jobs/.gitkeep
+.venv/
+.cache/
+npm-debug.log*
+.DS_Store

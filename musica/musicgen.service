@@ -1,0 +1,19 @@
+[Unit]
+Description=Nocturne AI Music Studio
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/we/MusicGen
+ExecStart=/usr/bin/node /home/we/MusicGen/server.js
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+Environment=HOST=0.0.0.0
+Environment=PORT=3000
+Environment=GENERATION_CONCURRENCY=2
+EnvironmentFile=-/home/we/MusicGen/.env
+
+[Install]
+WantedBy=default.target

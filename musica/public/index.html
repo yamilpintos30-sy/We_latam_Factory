@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08040f"><meta name="description" content="Estudio generativo de música, arte y lanzamientos.">
+  <title>Nocturne — Generative Music Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/music/styles.css"><link rel="stylesheet" href="/tools/music/release.css">
+</head>
+<body>
+<aside class="ab-sidebar" data-active="music" aria-label="Navegación">
+  <a class="ab-logo" href="/">
+    <span class="ab-logo-mark">A</span>
+    <span class="ab-logo-text"><b>Arcanbyte</b><small>Workspace</small></span>
+  </a>
+
+  <div class="ab-label">HERRAMIENTAS</div>
+  <nav class="ab-menu">
+    <a class="ab-tool" href="/tools/music/" data-key="music">
+      <span class="ab-tool-icon">♫</span>
+      <span class="ab-tool-info"><b>Nocturne</b><small>Música & portadas</small></span>
+    </a>
+    <a class="ab-tool" href="/tools/transcriptor/" data-key="transcriptor">
+      <span class="ab-tool-icon">◉</span>
+      <span class="ab-tool-info"><b>Video Voces</b><small>Transcripción</small></span>
+    </a>
+    <a class="ab-tool" href="/tools/video/" data-key="video">
+      <span class="ab-tool-icon">▶</span>
+      <span class="ab-tool-info"><b>VideoGen</b><small>Generación de video</small></span>
+    </a>
+    <a class="ab-tool" href="/tools/frames/" data-key="frames">
+      <span class="ab-tool-icon">▧</span>
+      <span class="ab-tool-info"><b>Frame Editor</b><small>OCR & borrado</small></span>
+    </a>
+    <a class="ab-tool" href="/tools/youtube/" data-key="youtube">
+      <span class="ab-tool-icon">▷</span>
+      <span class="ab-tool-info"><b>Seguimiento YT</b><small>Canales & métricas</small></span>
+    </a>
+  </nav>
+
+  <div class="ab-info">
+    <span>SISTEMA</span>
+    <b>Arcanbyte Hub</b>
+    <small>Acceso unificado a todas las herramientas de IA del workspace.</small>
+  </div>
+  <a class="ab-hub-link" href="/">← Volver al Hub</a>
+</aside>
+<link rel="stylesheet" href="/toolkit/sidebar.css">
+<script src="/toolkit/sidebar.js" defer></script>
+
+  <div class="ab-page">
+      <div class="ambient"><i></i><i></i><i></i></div><div class="grain"></div>
+  <header class="nav">
+    <a class="brand" href="#top"><span class="brand-mark"><b>N</b></span><span>NOCTURNE<small>GENERATIVE AUDIO LAB</small></span></a>
+    <div class="nav-center"><a href="#createStudio">CREAR</a><a href="#jobPanel">SESIÓN</a><a href="#librarySection">BIBLIOTECA</a></div>
+    <div class="status"><i></i><span id="apiStatus">CONECTANDO</span></div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy"><p class="kicker"><span>✦</span> ORIGINAL MUSIC, AFTER DARK</p><h1>Tu próxima era<br><em>suena diferente.</em></h1><p class="lead">De una idea a un universo completo: música original, portadas y lanzamientos listos para compartir.</p><a href="#createStudio" class="ghost-link">ENTRAR AL ESTUDIO <span>↓</span></a></div>
+      <div class="hero-visual"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="moon"><div class="moon-noise"></div><span>LIVE<br>GENERATION</span></div><div class="hero-meta"><b>48 kHz</b><span>LOSSLESS AUDIO</span></div></div>
+    </section>
+
+    <section class="studio-shell" id="createStudio">
+      <aside class="studio-side"><p>CREATIVE FLOW</p><ol><li class="active"><span>01</span><div><b>Dirección</b><small>Define tu universo</small></div></li><li><span>02</span><div><b>Demo</b><small>Escucha y elige arte</small></div></li><li><span>03</span><div><b>Producción</b><small>Álbum completo</small></div></li></ol><div class="side-note"><span>∞</span><p>Dos canciones pueden componerse simultáneamente.</p></div></aside>
+
+      <section class="studio-card">
+        <div class="card-head"><div><p class="section-id">01 / DIRECCIÓN CREATIVA</p><h2>¿Qué quieres escuchar?</h2></div><span class="ai-chip">✦ AI DIRECTOR</span></div>
+        <form id="studioForm">
+          <div class="field"><label for="genre">Género o mezcla</label><div class="genre-row"><input id="genre" placeholder="Ej. cumbia argentina, dream pop…" value="Dark ambient"><button class="manual" id="manual" type="button">Usar mi género</button><button class="discover" id="discover" type="button"><span>✦</span> Explorar tendencias</button></div><p class="hint">Escribe libremente o explora qué sonidos están creciendo ahora.</p></div>
+          <div class="field prompt-field"><label for="prompt">Prompt</label><div class="genre-row"><textarea id="prompt" class="text-input" rows="4" placeholder="Describe exactamente la canción que querés generar…"></textarea><button class="discover" id="usePrompt" type="button"><span>→</span> Usar Prompt</button></div><p class="hint">Dirección creativa independiente. Se envía directamente a ElevenLabs para componer la canción.</p></div>
+
+          <div class="release-grid"><div class="field"><label for="artist">Proyecto artístico</label><input class="text-input" id="artist" maxlength="100" placeholder="Nombre artístico" value="Nocturne Archive"></div><div class="field"><label for="count">Cantidad de lanzamientos</label><div class="number-wrap"><input class="text-input" id="count" type="number" min="1" max="30" value="8"><span>PIEZAS</span></div></div></div>
+
+          <div class="field"><label>Formato de contenido</label><div class="formats">
+            <label class="format"><input type="radio" name="format" value="long"><span class="format-icon">∞</span><div><strong>LONG</strong><small>Tracks de 3:00</small></div><i>Colecciones extensas</i></label>
+            <label class="format selected"><input type="radio" name="format" value="video" checked><span class="format-icon">▶</span><div><strong>VIDEO</strong><small>Tracks de 3:00</small></div><i>Spotify + YouTube</i></label>
+            <label class="format"><input type="radio" name="format" value="short"><span class="format-icon">ϟ</span><div><strong>SHORT</strong><small>Master de 3:00</small></div><i>Base para recortes</i></label>
+          </div></div>
+
+          <div class="controls-row"><div class="duration"><div><label for="minutes">Duración del master final</label><small id="durationHelp">Cada canción final incluye WAV, portada y MP4 de 3:00</small></div><output id="durationOut">3:00</output><input id="minutes" type="range" min="3" max="3" value="3" step="1"></div><label class="toggle"><input id="instrumental" type="checkbox"><span></span><div><b>Solo instrumental</b><small>Desactiva voces y letra</small></div></label></div>
+
+          <article id="concept" class="concept hidden"><div class="concept-glow"></div><div class="concept-top"><p><span>✦</span> UNIVERSO CREATIVO</p><small id="liveBadge">GÉNERO PROPIO</small></div><h3 id="conceptTitle"></h3><p id="conceptSummary"></p><blockquote id="conceptHook"></blockquote><div class="tags" id="conceptTags"></div><div class="sources" id="sources"></div></article>
+          <button id="create" class="primary-action" type="submit" disabled><span><b>Generar demo</b><small>30 segundos + 3 portadas</small></span><i>→</i></button>
+        </form>
+      </section>
+    </section>
+
+    <section id="jobPanel" class="session hidden">
+      <div class="session-head"><div><p class="section-id">02 / SESIÓN ACTIVA</p><h2 id="jobTitle">Componiendo…</h2><p id="jobMessage">Preparando la dirección musical.</p></div><div class="progress-orb"><strong id="progressText">0%</strong><small>AUDIO</small></div></div>
+      <div class="progress"><i id="progressBar"></i></div>
+      <div class="session-grid">
+        <div class="library"><div class="panel-title"><span>PISTAS</span><small>Disponibles apenas terminan</small></div><div id="tracks" class="tracks"></div></div>
+        <div class="art-panel"><div class="panel-title"><span>PORTADAS</span><small>Selecciona tu dirección</small></div><div id="covers" class="covers"></div></div>
+      </div>
+      <div class="job-actions"><button id="approve" class="primary-action hidden"><span><b>Aprobar y producir colección</b><small>Tracks finales de 3:00</small></span><i>→</i></button><button id="makeVideo" class="primary-action hidden" type="button"><span><b>Crear vídeo con la canción seleccionada</b><small>El vídeo se adapta a la duración de la canción</small></span><i>▶</i></button><a id="videoDownload" class="primary-action hidden" download><span><b>Descargar vídeo seleccionado</b><small>MP4 1080p con la canción completa</small></span><i>↓</i></a><a id="download" class="primary-action hidden" download><span><b>Descargar paquete por plataforma</b><small>Spotify / WAV + arte · YouTube / MP4</small></span><i>↓</i></a></div>
+    </section>
+
+    <section id="librarySection" class="history">
+      <div class="history-head"><div><p class="section-id">ARCHIVO / PERSISTENTE</p><h2>Tus universos anteriores</h2><p>Producciones terminadas y sesiones que siguen trabajando.</p></div><button id="refreshLibrary" class="tool-button">↻ ACTUALIZAR</button></div>
+      <div id="historyGrid" class="history-grid"><div class="history-empty">Todavía no hay generaciones guardadas.</div></div>
+    </section>
+  </main>
+
+  <section id="playerDock" class="player-dock hidden">
+    <div class="now-cover" id="nowCover"><span>♪</span></div><div class="now-meta"><small>AHORA SUENA</small><b id="nowTitle">Sin pista</b><span id="nowArtist">Nocturne</span></div>
+    <button id="playButton" class="play-button" aria-label="Reproducir"><span>▶</span></button>
+    <div class="transport"><div class="time-row"><span id="currentTime">0:00</span><span id="durationTime">0:00</span></div><input id="seek" type="range" min="0" max="1000" value="0"><div class="wave-decoration"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <button id="lyricsToggle" class="tool-button">LETRA</button><div class="volume"><span>◒</span><input id="volume" type="range" min="0" max="1" value="0.85" step="0.01"></div><audio id="audioEngine"></audio>
+  </section>
+
+  <aside id="lyricsPanel" class="lyrics-panel"><button id="lyricsClose" aria-label="Cerrar">×</button><p>LETRA / LIVE</p><h2 id="lyricsTitle">—</h2><div id="lyricsBody"><span>Selecciona una canción para ver su letra.</span></div></aside>
+
+  <footer><div class="brand-mini">N / NOCTURNE</div><p>ORIGINAL BY DESIGN · NOCTURNE AUDIO ENGINE</p><span>CREATE AFTER DARK · 2026</span></footer>
+  </div>
+<script type="module" src="/tools/music/app.js"></script>
+</body></html>

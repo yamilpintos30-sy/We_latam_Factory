@@ -1,0 +1,12 @@
+{
+  "name": "nocturne-music-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/app.js && python3 -m py_compile scripts/generate_cover.py scripts/package_release.py"
+  },
+  "engines": { "node": ">=18" }
+}
